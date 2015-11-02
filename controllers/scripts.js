@@ -15,27 +15,27 @@ $(document).ready(function () {
     console.log("jquery onload triggered");
     $("#head").css("background-color", "lightblue").css("padding", "20px").css("border-radius", "8px");
     
-    $(".about").text("New text");
+ //   $(".about").text("New text");
     $(".about").html("<b>New text2</b>");
     $("[data-dummy]").html("<p>Hello World<p>");
     
     var setting = {
         
         method: "GET",
-        url: "http://localhost:28017/oma/person/",
+        url: "http://localhost:3000/oma/persons",
         dataType: "jsonp",
-        jsonp: "jsonp"    //json padding
+//        jsonp: "jsonp"    //json padding
     };
     
     $.ajax(setting).done(function (data) {
         console.log(data);
-        console.log(Object.keys(data.rows[0])); // Get all keys (attribute names) from json object
+        console.log(Object.keys(data[0])); // Get all keys (attribute names) from json object
         
         
   
-        if(data.rows.length > 0){                            //Check that there are elements in array
+        if(data.length > 0){                            //Check that there are elements in array
             
-            var headers = Object.keys(data.rows[0]);        //Create table headers dynamically
+            var headers = Object.keys(data[0]);        //Create table headers dynamically
         
             var row = $("<tr></tr>");
             
@@ -49,14 +49,14 @@ $(document).ready(function () {
          
         }
             
-            for (var i = 0; i < data.rows.length; i++) {     //Create table content dynamically   
+            for (var i = 0; i < data.length; i++) {     //Create table content dynamically   
 
         
           var html = "<tr>" +
-                       "<td>" + data.rows[i].name + "</td>" +
-                       "<td>" + data.rows[i].address + "</td>" +
-                       "<td>" + data.rows[i].age + "</td>" +
-                       "<td>" + data.rows[i].email + "</td>" +
+                       "<td>" + data[i].name + "</td>" +
+                       "<td>" + data[i].address + "</td>" +
+                       "<td>" + data[i].age + "</td>" +
+                       "<td>" + data[i].email + "</td>" +
                        "</tr>";
             
            
