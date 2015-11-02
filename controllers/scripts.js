@@ -10,22 +10,22 @@ window.onload = function(event) {
 
 // JQUERY $ == constructor
 
-$(document).ready(function () {
+$(document).ready(function() {
     
     console.log("jquery onload triggered");
     $("#head").css("background-color", "lightblue").css("padding", "20px").css("border-radius", "8px");
     
  //   $(".about").text("New text");
     $(".about").html("<b>New text2</b>");
-    $("[data-dummy]").html("<p>Hello World<p>");
+    $("[data-dummy]").html("<p>Hello World</p>");
     
     var setting = {
         
-        method: "GET",
-        url: "http://localhost:3000/oma/persons",
-        dataType: "jsonp",
-//        jsonp: "jsonp"    //json padding
-    };
+        method:"GET",
+        url:"http://localhost:3000/persons",
+        dataType:"json",
+//        jsonp:"jsonp"    //json padding
+    }
     
     $.ajax(setting).done(function (data) {
         console.log(data);
@@ -39,7 +39,7 @@ $(document).ready(function () {
         
             var row = $("<tr></tr>");
             
-            for(var i = 1;  i < headers.length; i++){
+            for(var i = 1; i < headers.length; i++){
                 
                 $("<th>" + headers[i] + "</th>").appendTo(row);
                 
@@ -65,14 +65,39 @@ $(document).ready(function () {
             
             
     });
-
+    
 });
 
 /*
 $(document).ready(domReady);
 
 function domReady(){
-    
-}
-*/
+}*/
 
+/*
+window.onload = function(event){
+    
+    console.log(event);
+    para1.innerHTML = "Changed from JS";
+    //para1.style.backgroundColor = "yellow";
+    
+    var tempP = document.createElement("p");
+    tempP.innerHTML = "New Element";
+    para1.appendChild(tempP);
+}*/
+
+/*
+window.onload = domReady;
+
+function domReady(event){
+    
+    return 2;
+}
+
+function someFunction(nimi){
+    
+    console.log(nimi);
+}*/
+
+//someFunction(21);
+//someFunction("psavela");

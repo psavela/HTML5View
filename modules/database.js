@@ -1,5 +1,6 @@
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/27017/oma', connectionStatus);
+var mongoose = require("mongoose");
+
+mongoose.connect('mongodb://localhost:27017/oma',connectionStatus);
 
 /***********************************************
 **** Connection callback for fail and ok cases *
@@ -34,4 +35,4 @@ exports.Person = Person;         //Person
 exports.myFunction = function() {
     
     console.log("This ");
-};
+}
