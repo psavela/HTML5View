@@ -18,3 +18,14 @@ exports.getAllPersons = function(req,res) {
     });    
     
 }
+//ite keksitty nimi funktiolle saveNewPerson
+//This function saves new person information to our person collection
+exports.saveNewPerson = function(req,res){
+    
+    var personTemp = new db.Person(req.body);   // body sisältää json objektin
+    //Save i to database
+    personTemp.save(function(err,ok){
+        
+        res.send("Database action done");
+    });
+}

@@ -3,13 +3,17 @@ var db = require('./queries');
 
 var router = express.Router();
 
+//handle GET request for /persons context
 router.get('/', function(req, res) {
     
     db.getAllPersons(req, res);
     
 });
 
+//handle POST request for /persons context
 router.post('/', function(req, res) {
+        
+    db.saveNewPerson(req, res);
     
 });
 

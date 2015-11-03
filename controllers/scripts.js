@@ -1,6 +1,9 @@
 "use strict";
 console.log("Here we go!!");
 
+// This variable is shown to every function (global)
+//var g_person_data;
+
 /*
 window.onload = function(event) {
    console.log(event);
@@ -26,6 +29,8 @@ $(document).ready(function() {
         dataType:"json",
 //        jsonp:"jsonp"    //json padding
     }
+/**********************************************************************************************/
+/**********************************************************************************************/    
     
     $.ajax(setting).done(function (data) {
         console.log(data);
@@ -56,18 +61,45 @@ $(document).ready(function() {
                        "<td>" + data[i].name + "</td>" +
                        "<td>" + data[i].address + "</td>" +
                        "<td>" + data[i].age + "</td>" +
-                       "<td>" + data[i].email + "</td>" +
+                       "<td><input type='button' id=" + data[i]._id + " value='Modify'/></td>"; // + data[i].email + "</td>" +
                        "</tr>";
             
            
             $(html).appendTo("tbody");    //varo duplikaattimääritystä
         }
+        
+        // Get all elements from DOM where element has attribute 'type' with 
+        //value 'button'. Then add event handler for click vent for each of them.
+        $("[type=button]").click(function(click_data){
+            
+            for(var i = 0; i < data.length; i++){
+                
+                // Check if id from button matches one of person id
+                if(click_data.currentTarget.id == data[i]._id)
+                    {
+                        buildModifyUI(data[i]);
+                        break;
+                    }
+            }
+        
+            console.log(click_data);
+        });
             
             
     });
     
+
+    
 });
 
+
+function buildModifyUI(person_data){
+    
+    var html = "<input type='text' value='" + person_data.name + "'/>";
+    
+    
+    $("body").html(html);
+}
 /*
 $(document).ready(domReady);
 
