@@ -19,9 +19,16 @@ router.post('/', function(req, res) {
 
 router.put('/', function(req, res) {
     
+    db.updatePerson(req,res);
+    
 });
 
-router.delete('/', function(req, res) {
+router.delete('/:id', function(req, res) {
+    
+    db.deletePerson(req,res);
+    
+//    console.log(req.params.id);
+//    res.send("Person deleted"); //redirect('/');    //Palaa root sivulle
     
 });
 

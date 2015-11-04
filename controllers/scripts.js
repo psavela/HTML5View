@@ -95,10 +95,39 @@ $(document).ready(function() {
 
 function buildModifyUI(person_data){
     
-    var html = "<input type='text' value='" + person_data.name + "'/>";
+    var html = "<input id='name' type='text' value='" + person_data.name + "'/>";
+    html += "<input id='address' type='text' value='" + person_data.address + "'/>";
+    html += "<input id='age' type='text' value='" + person_data.age + "'/>";
+    html += "<input type='button' value='Update' id='update'/>";
+    html += "<input type='button' value='Delete' id='delete'/>";
     
+    $("body").html(html); //ylikirjoittaa aikaisemman näkymän
     
-    $("body").html(html);
+    $("#delete").click(function(){      //id määrettä osoitetaan #. jos olisi class määre, niin silloin '.'.
+        
+       $.ajax({
+           method:'DELETE',
+           url:'http://localhost:3000/persons/id=' + person_data._id
+       }).done(function(data){location.reload(true)});  //refreshaa sivun javascriptin avulla
+    });
+    
+    $("#update").click(function(){
+ 
+//siirrä päivitetty data temp:iin
+        var temp = {
+            id:person_data._id,
+            name:$("#name").val(),
+            address:$("#address").val(),
+            age:$("#age").val()
+        }
+        
+        $.ajax({
+            method:"PUT",
+            url:'http://localhost:3000/persons',
+            dataType:'json',
+            data:temp
+        }).done(function(){location.reload(true)});
+    });
 }
 /*
 $(document).ready(domReady);
