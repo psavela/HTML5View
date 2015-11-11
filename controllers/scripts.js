@@ -16,6 +16,43 @@ window.onload = function(event) {
 $(document).ready(function() {
     
     console.log("jquery onload triggered");
+/*****************************************************************************************************    
+/* tästä alkaa search
+/*****************************************************************************************************/
+    $("#search").click(function(){   // jquery ($) constructorille search attribuutti. 
+        var text = $("#search_text").val();  // sisälle callback funktio käsittelemään tapahtuma. Clientiltä (java scriptistä) serverille aina ajax:lla
+        $.ajax({
+            
+            method:"GET",
+            url:"http://localhost:3000/persons/nimi=" + text,  //tähän ei saa laittaa puolipistettä voi laittaa pilkun
+                                                                // nimi on attributti koska '='
+        }).done(function(data){        //responsen käsittely // tai success: url:n jälkeen 
+            console.log(data);
+    
+// poista duplikaatti tbodysta, muuten tulostaa joka haulle löytyvät + löytyvät
+            $("tbody").children().remove();
+            
+   //tulosta tulokset            
+     for (var i = 0; i < data.length; i++) {     //Create table content dynamically   alla generoidaan html:aa keskellä java skriptia
+     
+          var html = "<tr>" +
+                       "<td>" + data[i].name + "</td>" +
+                       "<td>" + data[i].address + "</td>" +
+                       "<td>" + data[i].age + "</td>" +
+                       "<td><input type='button' id=" + data[i]._id + " value='Modify'/></td>"; // + data[i].email + "</td>" +
+                       "</tr>";
+            
+           
+            $(html).appendTo("tbody");    //varo duplikaattimääritystä
+        }
+        
+        });  
+        
+    });    
+   
+   
+            
+    
     $("#head").css("background-color", "lightblue").css("padding", "20px").css("border-radius", "8px");
     
  //   $(".about").text("New text");
@@ -54,7 +91,7 @@ $(document).ready(function() {
          
         }
             
-            for (var i = 0; i < data.length; i++) {     //Create table content dynamically   
+        for (var i = 0; i < data.length; i++) {     //Create table content dynamically   
 
         
           var html = "<tr>" +

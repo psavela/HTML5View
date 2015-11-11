@@ -19,6 +19,13 @@ function connectionStatus(err, ok){
     }
 }
 
+//referenssitaulukko. sql:ssa join
+var User = mongoose.model('User',{
+    username:{type:String,unique:true},
+    password:String,
+    friends:[{type:mongoose.Schema.Types.Object, ref:'Person'}]
+});
+
 
 var Person = mongoose.model('Person', {   //joka collectionista tehtävä malli. tee tästä kopio user malliin!!!
     

@@ -2,13 +2,22 @@ var express = require("express");
 var db = require('./queries');
 
 var router = express.Router();
-
+// nämä on routereita
 //handle GET request for /persons context
 router.get('/', function(req, res) {
     
     db.getAllPersons(req, res);
     
 });
+
+
+// search:lle router kohta 3. ks vihko 11.11.2015
+router.get('/:nimi', function(req,res){
+    
+    console.log("Get with name router called");  // tämä näkyy nodemon konsoli-promptissa
+    db.findPersonsByName(req,res);
+});
+
 
 //handle POST request for /persons context
 router.post('/', function(req, res) {

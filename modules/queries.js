@@ -25,8 +25,8 @@ exports.saveNewPerson = function(req,res){
     var personTemp = new db.Person(req.body);   // body sisältää json objektin
     //Save i to database
     personTemp.save(function(err,ok){
-        
-        res.send("Database action done");
+        //make a redirect to root context
+        res.redirect('/');  
     });
 }
 
@@ -43,8 +43,8 @@ exports.deletePerson = function(req,res){
         
        if(err){
            
-           res.send(err.message);
-       } 
+           res.send(err.message);   //res.send(err.message);
+       }  
         else{
             
             res.send("Delete ok");
@@ -66,4 +66,27 @@ exports.updatePerson = function(req,res){
         res.send({data:"ok"});
     });
     
+}
+
+/*
+*This function searches database by name or by begin letters
+* etsi netistä mongoose and search by name starting --> stackoverflow.com tai mongoose
+*/
+exports.findPersonsByName = function(req,res){
+    
+    var name = req.params.nimi.split("=")[1];  // split operaatio luo aina taulukon
+    console.log("name:" + name);
+    
+    db.Person.find({name:{'$regex':'^' + name,'$options':'i'}}, function(err,data) {
+                                                         
+        if(err){
+            
+            res.send('error');
+          }
+        else{
+            
+            console.log(data);
+            res.send(data);
+          }
+    });
 }
