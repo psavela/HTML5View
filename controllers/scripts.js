@@ -62,7 +62,7 @@ $(document).ready(function() {
     var setting = {
         
         method:"GET",
-        url:"http://localhost:3000/persons",
+        url:"http://localhost:3000/friends/username=" + localStorage['username'],   //local storagesta saatu username
         dataType:"json",
 //        jsonp:"jsonp"    //json padding
     }
