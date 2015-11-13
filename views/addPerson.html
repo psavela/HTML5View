@@ -1,34 +1,67 @@
 <!doctype html>
 <html>
     <head>
-        <meta charset="utf-8">
-        <!--Attribuutit fontti ja header teksti-->
-<!--        <title>Hello World!</title>
-        <link href="/css/styles.css" type="text/css" rel="stylesheet"/>
-        <link href="/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
-        <link href="/css/bootstrap-theme.min.css" type="text/css" rel="stylesheet"/> -->
+        
+        <script src="../lib/jquery-2.1.4.min.js"></script>
+        <script>
+            // tehdään scripti tietojen lähetystä varten tähän. Sisältää nyt myös usernamen. Laita sisäiset scriptit ain head:iin
+            $(document).ready(function(){
+                
+                $("#sendBtn").click(function(){
+                    
+                    var data = {
+                        
+                        user:localStorage['username'],  //['username'] --> myös .username. tai getItem
+                        name:$("#name").val(),
+                        address:$("#address").val(),
+                        age:$("#age").val()
+                    }
+                    
+                    $.ajax({
+                        method:'POST',
+                        url:'http://localhost:3000/persons',
+                        data:data,
+//                        dataType:"json"
+                    }).done(function(data){
+                        
+                        window.location ="./persons.html";
+                    
+              });
+         });
+     });
+        </script>
+
+
     </head>    
         <body>
-           
+         
             <h1>Add new contact info</h1>
-            <div>
+            
+              <form>
+                  
+                    <input type="text" required placeholder="Your full name" id="name"><br/><br/>
+                    <input type="text" required placeholder="Your full address" id="address"><br/><br/>
+                    <input type="number" required placeholder="Your age" id="age"><br/><br/>
+                    
+                    <input id="sendBtn" type="button" value=" send">     
+                                                                  
+              </form> 
+                                                                  
+                                                                  
+<!-- form metodilla ei voida enää lähettää tietoja kun halutaan username mukaan, jotta saadaan friend lista.
+          <div>
                 <form method="post" enctype="application/json" action="persons"> 
                     
                     Name: <input type="text" required placeholder="Your full name" name="name"><br/><br/>
                     Address: <input type="text" required placeholder="Your full address" name="address"><br/><br/>
                     Age: <input type="number" required placeholder="Your age" name="age"><br/><br/>
                     
-                    <input type="submit" value=" send">
-                
-                
-                
-                
-                
+                    <input type="submit" value=" send"/>               
                 </form>
-            
-    
+-->            
+  <!--    
             </div>
- <!--            <form>
+           <form>
                   <div class="form-group">
                     <label for="InputName">Name</label>
                     <input type="name" class="form-control" id="InputName" placeholder="Name">

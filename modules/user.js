@@ -32,4 +32,15 @@ router.post('/register', function(req,res){
     query.registerFriend(req,res);
 });
 
+
+router.delete('/friend/:id', function(req, res) {
+    
+    query.deleteFriend(req,res);
+    
+//    console.log(req.params.id);
+//    res.send("Person deleted"); //redirect('/');    //Palaa root sivulle
+    
+});
+
+
 module.exports = router;

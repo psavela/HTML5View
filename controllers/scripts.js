@@ -42,10 +42,26 @@ $(document).ready(function() {
                        "<td><input type='button' id=" + data[i]._id + " value='Modify'/></td>"; // + data[i].email + "</td>" +
                        "</tr>";
             
-           
+           //
             $(html).appendTo("tbody");    //varo duplikaattimääritystä
         }
         
+// Tämä funktio sama kuin alempana            
+       $("[type=button]").click(function(click_data){
+            
+            for(var i = 0; i < data.length; i++){
+                
+                // Check if id from button matches one of person id
+                if(click_data.currentTarget.id == data[i]._id)
+                    {
+                        buildModifyUI(data[i]);
+                        break;
+                    }
+            }
+        
+            console.log(click_data);
+        });            
+                        
         });  
         
     });    
@@ -73,7 +89,7 @@ $(document).ready(function() {
         console.log(data);
         console.log(Object.keys(data[0])); // Get all keys (attribute names) from json object
         
-        
+    
   
         if(data.length > 0){                            //Check that there are elements in array
             
@@ -100,7 +116,6 @@ $(document).ready(function() {
                        "<td>" + data[i].age + "</td>" +
                        "<td><input type='button' id=" + data[i]._id + " value='Modify'/></td>"; // + data[i].email + "</td>" +
                        "</tr>";
-            
            
             $(html).appendTo("tbody");    //varo duplikaattimääritystä
         }
@@ -125,7 +140,6 @@ $(document).ready(function() {
             
     });
     
-
     
 });
 

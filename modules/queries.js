@@ -20,13 +20,20 @@ exports.getAllPersons = function(req,res) {
 }
 //ite keksitty nimi funktiolle saveNewPerson
 //This function saves new person information to our person collection
-exports.saveNewPerson = function(req,res){
+exports.saveNewPerson = function(req,res){       // tässä luodaan objekti jota käytetään alempana
     
     var personTemp = new db.Person(req.body);   // body sisältää json objektin
     //Save i to database
     personTemp.save(function(err,ok){
+        
+        db.Friends.update({username:req.body.user},
+                          {$push:{'friends':personTemp._id}},
+                         function(err,model){
+            
+            res.send("Added stuff");
+        });
         //make a redirect to root context
-        res.redirect('/');  
+//        res.redirect('/');  
     });
 }
 
@@ -39,6 +46,7 @@ exports.deletePerson = function(req,res){
     var id = req.params.id.split("=")[1];
     console.log(id);
     
+    var userName = req.params.username.split("=")[1];
     db.Person.remove({_id:id}, function(err){
         
        if(err){
@@ -46,12 +54,19 @@ exports.deletePerson = function(req,res){
            res.send(err.message);   //res.send(err.message);
        }  
         else{
+            //If succesfully removed remome also reference from
+            //User collection
+            db.Friends.update({username:userName},{$pull:{'friends':id}},function(err,data){
+                console.log(err);
+                res.send("Delete ok");    
+            });
             
             res.send("Delete ok");
         }
     });
     
 }
+
 
 //This method updates one person info
 exports.updatePerson = function(req,res){
@@ -138,7 +153,7 @@ exports.getFriendsByUsername = function(req,res){
     db.Friends.find({username:usern}).populate('friends').exec(function(err,data){   //mongoose populate
         
         console.log(err);
-        console.log(data);
-        res.send(data.friends);        //palauttaa friends taulukon
+        console.log(data[0].friends);
+        res.send(data[0].friends);        //palauttaa friends taulukon
     }); 
 }
